@@ -6,10 +6,13 @@ import com.example.coreapi.entity.LogEntity;
 import com.example.coreapi.service.LogEntityService;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -29,13 +32,19 @@ public class LogEntityServiceImpl implements LogEntityService {
     }
 
     @Override
-    public void writeLogToFile(LogEntityDto logEntityDto) {
-        Path path = Paths.get(LOG_FILE_PATH);
-        try (FileWriter fileWriter = new FileWriter(path.toString(), true)) {
-            fileWriter.write(String.format("%s %s\n",
-                    logEntityDto.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    logEntityDto.getMessage()));
-            fileWriter.flush();
+    public void writeLogToFile(String fileName, LogEntityDto logEntityDto) {
+        Path path = Paths.get(fileName);
+        if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+            writer.write(logEntityDto.toString());
+            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

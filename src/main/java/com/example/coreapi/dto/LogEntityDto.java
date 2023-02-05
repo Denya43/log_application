@@ -1,12 +1,17 @@
 package com.example.coreapi.dto;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class LogEntityDto {
 
+    @NotNull
     private String message;
+    @NotNull
     private String type;
+    @NotNull
     private String level;
+    @NotNull
     private LocalDate time;
 
     public LogEntityDto() {
@@ -45,6 +50,16 @@ public class LogEntityDto {
 
     public LocalDate getTime() {
         return time;
+    }
+
+    @Override
+    public String toString() {
+        return "LogEntityDto{" +
+                "message='" + message + '\'' +
+                ", type='" + type + '\'' +
+                ", level='" + level + '\'' +
+                ", time=" + time +
+                '}';
     }
 
     public void setTime(LocalDate time) {

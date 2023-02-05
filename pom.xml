@@ -83,11 +83,17 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.10.4</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>2.0.2</version>
+        </dependency>
     </dependencies>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
 
 </project>
