@@ -14,7 +14,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2  mvn clean package -Dmaven.test.skip
 
 # split the built app into multiple layers to improve layer rebuild
-RUN mkdir -p target/docker-packaging && cd target/docker-packaging && jar -xf ../my-app*.jar
+RUN mkdir -p target/docker-packaging && cd target/docker-packaging && jar -xf ../log-application*.jar
 
 ########JRE run stage########
 FROM openjdk:11.0-jre
