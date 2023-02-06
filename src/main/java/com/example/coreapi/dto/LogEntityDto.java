@@ -1,8 +1,13 @@
 package com.example.coreapi.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
 public class LogEntityDto {
 
     @NotNull
@@ -17,41 +22,6 @@ public class LogEntityDto {
     public LogEntityDto() {
     }
 
-    public LogEntityDto(String message, String type, String level, LocalDate time) {
-        this.message = message;
-        this.type = type;
-        this.level = level;
-        this.time = time;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public LocalDate getTime() {
-        return time;
-    }
-
     @Override
     public String toString() {
         return "LogEntityDto{" +
@@ -60,9 +30,5 @@ public class LogEntityDto {
                 ", level='" + level + '\'' +
                 ", time=" + time +
                 '}';
-    }
-
-    public void setTime(LocalDate time) {
-        this.time = time;
     }
 }

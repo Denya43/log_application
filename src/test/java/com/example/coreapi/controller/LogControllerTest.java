@@ -1,5 +1,6 @@
 package com.example.coreapi.controller;
 
+import com.example.coreapi.controller.impl.LogControllerImpl;
 import com.example.coreapi.dto.LogEntityDto;
 import com.example.coreapi.service.LogEntityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,7 @@ public class LogControllerTest {
     private LogEntityService logService;
 
     @Mock
-    private LogController logController;
+    private LogControllerImpl logController;
 
     private MockMvc mockMvc;
 
