@@ -1,10 +1,7 @@
 package com.example.coreapi.entity;
 
 import com.example.coreapi.dto.LogEntityDto;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class LogEntity {
 
     @Id
@@ -34,14 +32,16 @@ public class LogEntity {
     @Column(name = "time")
     private LocalDate time;
 
-    public LogEntity(String message, String type, String level, LocalDate time) {
-    }
 
     public LogEntity(LogEntityDto logEntityDto) {
         this.message = logEntityDto.getMessage();
         this.type = logEntityDto.getType();
         this.level = logEntityDto.getLevel();
         this.time = logEntityDto.getTime();
+    }
+
+    public LogEntity(String message) {
+        this.message = message;
     }
 
     @Override

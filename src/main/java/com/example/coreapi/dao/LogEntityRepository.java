@@ -8,4 +8,5 @@ import com.example.coreapi.entity.LogEntity;
 @Repository
 public interface LogEntityRepository extends JpaRepository<LogEntity, Long> {
 
+    LogEntity findByMessage(String message);
 }
