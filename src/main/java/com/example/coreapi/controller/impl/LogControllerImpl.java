@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping()
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class LogControllerImpl implements LogController {
     private static final String fileName = "logs.txt";
 
 
-    @PostMapping(value = "/logs", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/logs")
     public ResponseEntity<String> addLog(@Valid @RequestBody LogEntityDto logEntityDto) {
         log.trace("ENTRY addLog");
 

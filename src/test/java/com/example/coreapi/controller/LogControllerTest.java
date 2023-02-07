@@ -7,13 +7,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,7 +23,7 @@ public class LogControllerTest {
     @Mock
     private LogEntityService logService;
 
-    @Mock
+    @InjectMocks
     private LogControllerImpl logController;
 
     private MockMvc mockMvc;
@@ -36,10 +35,12 @@ public class LogControllerTest {
 
     @Test
     public void addLog_ShouldReturn200AndSavedMessage_WhenValidInput() throws Exception {
-        LogEntityDto log = new LogEntityDto("message", "type", "level", LocalDate.now());
-
-        mockMvc.perform(post("/core-api/logs")
-                        .content(asJsonString(log))
+        String testJson = "{\"message\":\"denis\",\n" +
+                "\"type\": \"мурчик\",\n" +
+                "\"level\":\"sdfsd\",\n" +
+                "\"time\": \"2023-03-04\" }";
+        mockMvc.perform(post("/logs")
+                        .content(testJson)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -48,7 +49,7 @@ public class LogControllerTest {
     public void addLog_ShouldReturn400_WhenInvalidInput() throws Exception {
         LogEntityDto log = new LogEntityDto("", "", "", null);
 
-        mockMvc.perform(post("/core-api/logs")
+        mockMvc.perform(post("/logs")
                         .content(asJsonString(log))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -59,6 +60,48 @@ public class LogControllerTest {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private class TestDto {
+        private String message;
+        private String type;
+        private String level;
+        private String time;
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        //        @Override
+//        public String toString() {
+//            return
+//                    "\"message\":\"" + message + "\"," +
+//                            "\"type\":\"" + message + "\"," +
+//                            "\"level\":\"" + message + "\"," +
+//                            "\"level\":\"" + message + "\"";
+//
+//        }
+        @Override
+        public String toString() {
+            return "TestDto{" +
+                    "message='" + message + '\'' +
+                    ", type='" + type + '\'' +
+                    ", level='" + level + '\'' +
+                    ", time=" + time +
+                    '}';
         }
     }
 }

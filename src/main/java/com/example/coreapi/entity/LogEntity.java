@@ -33,16 +33,6 @@ public class LogEntity {
     private LocalDate time;
 
 
-    public LogEntity(LogEntityDto logEntityDto) {
-        this.message = logEntityDto.getMessage();
-        this.type = logEntityDto.getType();
-        this.level = logEntityDto.getLevel();
-        this.time = logEntityDto.getTime();
-    }
-
-    public LogEntity(String message) {
-        this.message = message;
-    }
 
     @Override
     public boolean equals(Object o) {

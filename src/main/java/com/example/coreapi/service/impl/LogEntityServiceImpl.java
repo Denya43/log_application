@@ -6,6 +6,8 @@ import com.example.coreapi.entity.LogEntity;
 import com.example.coreapi.service.LogEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -21,11 +23,11 @@ import java.nio.file.StandardOpenOption;
 public class LogEntityServiceImpl implements LogEntityService {
     private final static String LOG_FILE_PATH = "/logs/logfile.txt";
     private final LogEntityRepository logEntityRepository;
+    private ModelMapper modelMapper;
 
     @Override
     public void saveLogToDatabase(LogEntityDto logEntityDto) {
-        LogEntity logEntity = new LogEntity(logEntityDto);
-
+        LogEntity logEntity = modelMapper.map(logEntityDto, LogEntity.class);
         logEntityRepository.save(logEntity);
     }
 
