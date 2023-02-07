@@ -32,6 +32,6 @@ public class LogControllerImpl implements LogController {
 
         log.trace("EXIT addLog");
 
-        return new ResponseEntity<>("Log has written successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Log fgdfhas written successfully", HttpStatus.OK);
     }
 }
