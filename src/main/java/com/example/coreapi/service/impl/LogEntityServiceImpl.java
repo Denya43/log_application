@@ -27,6 +27,11 @@ public class LogEntityServiceImpl implements LogEntityService {
 
     @Override
     public void saveLogToDatabase(LogEntityDto logEntityDto) {
+        modelMapper.createTypeMap(LogEntityDto.class, LogEntity.class)
+                .addMapping(LogEntityDto::getMessage, LogEntity::setMessage)
+                .addMapping(LogEntityDto::getType, LogEntity::setType)
+                .addMapping(LogEntityDto::getLevel, LogEntity::setLevel)
+                .addMapping(LogEntityDto::getTime, LogEntity::setTime);
         LogEntity logEntity = modelMapper.map(logEntityDto, LogEntity.class);
         logEntityRepository.save(logEntity);
     }
