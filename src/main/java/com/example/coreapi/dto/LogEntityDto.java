@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -17,18 +17,8 @@ public class LogEntityDto {
     @NotNull
     private String level;
     @NotNull
-    private LocalDate time;
+    private LocalDateTime time;
 
     public LogEntityDto() {
-    }
-
-    @Override
-    public String toString() {
-        return "LogEntityDto{" +
-                "message='" + message + '\'' +
-                ", type='" + type + '\'' +
-                ", level='" + level + '\'' +
-                ", time=" + time +
-                '}';
     }
 }

@@ -1,37 +1,47 @@
 package com.example.coreapi.entity;
 
-import com.example.coreapi.dto.LogEntityDto;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class LogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "message")
+    @Column()
     private String message;
 
-    @Column(name = "type")
+    @Column()
     private String type;
 
-    @Column(name = "level")
+    @Column()
     private String level;
 
-    @Column(name = "time")
-    private LocalDate time;
+    @Column()
+    private LocalDateTime time;
 
+    public LogEntity() {
+
+    }
+
+    public LogEntity(String message, String type, String level, LocalDateTime time) {
+        this.message = message;
+        this.level = level;
+        this.type = type;
+        this.time = time;
+    }
 
 
     @Override

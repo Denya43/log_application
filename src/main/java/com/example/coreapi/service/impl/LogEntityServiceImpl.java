@@ -7,7 +7,6 @@ import com.example.coreapi.service.LogEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -21,18 +20,13 @@ import java.nio.file.StandardOpenOption;
 @Slf4j
 @RequiredArgsConstructor
 public class LogEntityServiceImpl implements LogEntityService {
-    private final static String LOG_FILE_PATH = "/logs/logfile.txt";
     private final LogEntityRepository logEntityRepository;
-    private ModelMapper modelMapper;
+
 
     @Override
     public void saveLogToDatabase(LogEntityDto logEntityDto) {
-        modelMapper.createTypeMap(LogEntityDto.class, LogEntity.class)
-                .addMapping(LogEntityDto::getMessage, LogEntity::setMessage)
-                .addMapping(LogEntityDto::getType, LogEntity::setType)
-                .addMapping(LogEntityDto::getLevel, LogEntity::setLevel)
-                .addMapping(LogEntityDto::getTime, LogEntity::setTime);
-        LogEntity logEntity = modelMapper.map(logEntityDto, LogEntity.class);
+        LogEntity logEntity = new LogEntity(logEntityDto.getMessage(), logEntityDto.getLevel(), logEntityDto.getLevel(),
+                logEntityDto.getTime());
         logEntityRepository.save(logEntity);
     }
 
@@ -53,7 +47,8 @@ public class LogEntityServiceImpl implements LogEntityService {
             writer.write(logEntityDto.toString());
             writer.newLine();
         } catch (IOException e) {
-            log.error("Can't write into file");;
+            log.error("Can't write into file");
+            ;
         }
         log.trace("EXIT writeLogToFile");
     }

@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @Slf4j
 public class LogControllerImpl implements LogController {
     private final LogEntityService logService;
-    private static final String fileName = "logs.txt";
+    private static final String FILE_NAME = "logs.txt";
 
 
     @PostMapping(value = "/logs")
@@ -28,10 +28,10 @@ public class LogControllerImpl implements LogController {
         log.trace("ENTRY addLog");
 
         logService.saveLogToDatabase(logEntityDto);
-        logService.writeLogToFile(fileName, logEntityDto);
+        logService.writeLogToFile(FILE_NAME, logEntityDto);
 
         log.trace("EXIT addLog");
 
-        return new ResponseEntity<>("Log fgdfhas written successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Log written successfully", HttpStatus.OK);
     }
 }

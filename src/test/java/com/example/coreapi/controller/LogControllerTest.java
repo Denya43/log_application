@@ -62,46 +62,4 @@ public class LogControllerTest {
             throw new RuntimeException(e);
         }
     }
-
-    private class TestDto {
-        private String message;
-        private String type;
-        private String level;
-        private String time;
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public void setLevel(String level) {
-            this.level = level;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        //        @Override
-//        public String toString() {
-//            return
-//                    "\"message\":\"" + message + "\"," +
-//                            "\"type\":\"" + message + "\"," +
-//                            "\"level\":\"" + message + "\"," +
-//                            "\"level\":\"" + message + "\"";
-//
-//        }
-        @Override
-        public String toString() {
-            return "TestDto{" +
-                    "message='" + message + '\'' +
-                    ", type='" + type + '\'' +
-                    ", level='" + level + '\'' +
-                    ", time=" + time +
-                    '}';
-        }
-    }
 }
