@@ -14,5 +14,10 @@ RUN echo "Main-Class: com.example.CoreApiApplication." > /app/manifest.mf
 # Set the classpath to include the jar and the dependencies
 ENV CLASSPATH .:/app/app.jar:/app/lib/*
 
-# Run the application
+EXPOSE 80
+
+
+# Start the application
 CMD ["java", "-jar", "app.jar"]
+
+
