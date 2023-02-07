@@ -32,7 +32,7 @@ public class LogEntityServiceImpl implements LogEntityService {
 
     @Override
     public void writeLogToFile(String fileName, LogEntityDto logEntityDto) {
-        log.trace("ENTRY writeLogToFile");
+        log.info("ENTRY writeLogToFile");
 
         Path path = Paths.get(fileName);
         if (!Files.exists(path)) {
@@ -50,6 +50,6 @@ public class LogEntityServiceImpl implements LogEntityService {
             log.error("Can't write into file");
             ;
         }
-        log.trace("EXIT writeLogToFile");
+        log.info("EXIT writeLogToFile");
     }
 }
