@@ -3,7 +3,6 @@ package com.example.coreapi.controller.impl;
 import com.example.coreapi.controller.LogController;
 import com.example.coreapi.dto.LogEntityDto;
 import com.example.coreapi.service.LogEntityService;
-import com.example.coreapi.service.impl.LogEntityServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,6 +34,6 @@ public class LogControllerImpl implements LogController {
 
         log.trace("EXIT addLog");
 
-        return new ResponseEntity<>("Log written successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Log has written successfully", HttpStatus.OK);
     }
 }

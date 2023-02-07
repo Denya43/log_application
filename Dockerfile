@@ -1,35 +1,18 @@
-########Maven build stage########
-FROM maven:3.6-jdk-11 as maven_build
+# Use an openjdk image as the base image
+FROM openjdk:11-jdk
+
+# Set the working directory
 WORKDIR /app
 
-#copy pom
-COPY pom.xml .
+# Copy the jar file and the dependencies
+COPY target/*.jar /app/app.jar
+COPY target/classes /app/lib
 
-#resolve maven dependencies
-RUN mvn clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r target/
+# Create a manifest file
+RUN echo "Main-Class: com.example.CoreApiApplication." > /app/manifest.mf
 
-#copy source
-COPY src ./src
+# Set the classpath to include the jar and the dependencies
+ENV CLASSPATH .:/app/app.jar:/app/lib/*
 
-# build the app (no dependency download here)
-RUN mvn clean package  -Dmaven.test.skip
-
-# split the built app into multiple layers to improve layer rebuild
-RUN mkdir -p target/docker-packaging && cd target/docker-packaging && jar -xf ../log-application-1.0-SNAPSHOT.jar
-
-########JRE run stage########
-FROM openjdk:11.0-jre
-WORKDIR /app
-
-#copy built app layer by layer
-ARG DOCKER_PACKAGING_DIR=/app/target
-#COPY --from=maven_build ${DOCKER_PACKAGING_DIR}/BOOT-INF/lib /app/lib
-COPY --from=maven_build ${DOCKER_PACKAGING_DIR}/classes /app/classes
-#COPY --from=maven_build ${DOCKER_PACKAGING_DIR}/META-INF /app/META-INF
-
-EXPOSE 80
-
-#run the app
-CMD java -cp .:classes:lib/* \
-         -Djava.security.egd=file:/dev/./urandom \
-         com.example.coreapi.CoreApiApplication
+# Run the application
+CMD ["java", "-jar", "app.jar"]
