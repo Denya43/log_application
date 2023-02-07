@@ -25,12 +25,9 @@ public class LogControllerImpl implements LogController {
 
     @PostMapping(value = "/logs")
     public ResponseEntity<String> addLog(@Valid @RequestBody LogEntityDto logEntityDto) {
-        log.info("ENTRY addLog");
 
         logService.saveLogToDatabase(logEntityDto);
         logService.writeLogToFile(FILE_NAME, logEntityDto);
-
-        log.info("EXIT addLog");
 
         return new ResponseEntity<>("Log written successfully", HttpStatus.OK);
     }
